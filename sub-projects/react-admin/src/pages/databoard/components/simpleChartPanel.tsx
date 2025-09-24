@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useCallback } from "react";
 import * as echarts from "echarts/core";
 import { Card, Row, Col } from "antd";
 import { PanelData } from "@/types/api";
-import { useNavigate } from "react-router-dom";
 
 function getFormatDay(timestamp: number) {
   const time = new Date(timestamp);
@@ -23,6 +22,7 @@ interface PropsType {
   origin: PanelData["origin"];
   uv: PanelData["uv"];
   store: PanelData["store"];
+  onMoreClick?: () => void;
 }
 
 function SimpleChartPanel(props: PropsType) {
@@ -30,7 +30,6 @@ function SimpleChartPanel(props: PropsType) {
   const conversionRate = useRef<HTMLDivElement>(null);
   const origin = useRef<HTMLDivElement>(null);
   const store = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
   const chartInit = useCallback(() => {
     const saleChart = echarts.init(panel.current);
@@ -199,7 +198,9 @@ function SimpleChartPanel(props: PropsType) {
 
   const onClick = () => {
     // to detail
-    navigate("/detail");
+    if (props.onMoreClick) {
+      props.onMoreClick();
+    }
   };
 
   return (

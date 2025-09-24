@@ -4,6 +4,7 @@ import App from './App.tsx'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routerList from './router/router.tsx';
 import qiankunInit from './qiankun'
+import { AliveScope } from 'react-activation'
 
 import * as echarts from 'echarts/core';
 import {
@@ -70,13 +71,15 @@ function render(props: RenderProps): [Element, ReturnType<typeof ReactDOM.create
   const ReactRoot = ReactDOM.createRoot(root as HTMLElement)
   ReactRoot.render(<App dispatch={props.dispatch} getMainState={props.getMainState}>
     <BrowserRouter basename={qiankunWindow.__POWERED_BY_QIANKUN__ ? '/databoard' : '/'}>
-      <Routes>
-        {routerList.map(item => <Route key={item.path} path={item.path} element={item.element}></Route>)}
-        <Route path="*" element={routerList[0].errorElement} />
-      </Routes>
-      {!qiankunWindow.__POWERED_BY_QIANKUN__ && <SingleControl />}  
+      <AliveScope>
+        <Routes>
+          {routerList.map(item => <Route key={item.path} path={item.path} element={item.element}></Route>)}
+          <Route path="*" element={routerList[0].errorElement} />
+        </Routes>
+        {!qiankunWindow.__POWERED_BY_QIANKUN__ && <SingleControl />}
+      </AliveScope>
     </BrowserRouter>
-  </App>,)
+  </App>)
   return [root!, ReactRoot]
 }
 

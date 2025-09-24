@@ -8,10 +8,13 @@ import SimpleChartPanel from "./components/simpleChartPanel";
 import request from "main_for_react/request";
 import { PanelData } from "@/types/api";
 import { loadingHoc } from "@/comonents/loading";
+import { useNavigate } from "react-router-dom";
 
 export default function Databoard() {
   const ref = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<PanelData>({});
+  const navigate = useNavigate();
+  
   useEffect(() => {
     async function getData() {
       const res = await request.get<PanelData>("/panel");
@@ -19,6 +22,10 @@ export default function Databoard() {
     }
     getData();
   }, []);
+
+  const handleMoreClick = () => {
+    navigate("/detail");
+  };
   return (
     <div className="p-10 databoard" ref={ref}>
       <Row gutter={20}>
@@ -41,6 +48,7 @@ export default function Databoard() {
               origin={data.origin}
               uv={data.uv}
               store={data.store}
+              onMoreClick={handleMoreClick}
             />
           ) : <></>,
           !data.sale,

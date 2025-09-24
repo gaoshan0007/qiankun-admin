@@ -1,5 +1,4 @@
 import { ReactNode, useEffect } from "react";
-import { AliveScope } from "react-activation";
 import ConnectMainStore from "@/hooks/context/connectMainStore";
 import { ConfigProvider } from "antd";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -63,9 +62,7 @@ function App(props: AppProps) {
     <div className="react-app">
       <Provider store={store}>
         <Inner dispatch={props.dispatch} getMainState={props.getMainState}>
-          <AliveScope>
-            {props.children}
-          </AliveScope>
+          {props.children}
         </Inner>
       </Provider>
     </div>
