@@ -1,5 +1,9 @@
 <p align="center"><img width="150" src="./src/assets/images/logo.png" alt="Vue logo" /></p>
 
+# 主要修改
+1. 升级到新版
+
+
 # qiankun-admin
 
 免费开源的中后台模版。使用了最新的`qiankun`, `Vue3`, `Webpack5`, `Vite4`, `React18`, `TypeScript`等主流技术框架，开箱即用的中后台前端解决方案。具备基础的应用界面，开发与构建配置，应用状态管理，图表图形界面，页面tabs缓存控制等能力。
